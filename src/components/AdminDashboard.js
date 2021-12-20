@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import TableUsers from "./TableUsers";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import TableUsers from "./TableUsers";
+import { client, clientDelete } from "../client";
 
 export default function AdminDashboard() {
   const history = useHistory();
 
   const [isAdmin, setisAdmin] = useState(localStorage.getItem("adminLogin"));
-  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     console.log("isAdmin", isAdmin);
@@ -14,7 +14,6 @@ export default function AdminDashboard() {
       history.push(`/adminlogin`);
     }
   }, []);
-
   const handleLogout = () => {
     localStorage.setItem("adminLogin", 0);
     history.push("/adminlogin");
@@ -58,32 +57,14 @@ export default function AdminDashboard() {
                 </a>
               </li>
             </ul>
-            <form class="d-flex">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search user"
-                aria-label="Search"
-              />
-              <button
-                class="btn btn-outline-success"
-                type="submit"
-                style={{
-                  backgroundColor: "#fff",
-                  color: "#222",
-                  marginRight: "10px",
-                }}
-              >
-                Search
-              </button>
-              <button
-                class="btn  btn-warning"
-                type="button"
-                onClick={handleLogout}
-              >
-                Logout{" "}
-              </button>
-            </form>
+
+            <button
+              class="btn  btn-warning"
+              type="button"
+              onClick={handleLogout}
+            >
+              Logout{" "}
+            </button>
           </div>
         </div>
       </nav>

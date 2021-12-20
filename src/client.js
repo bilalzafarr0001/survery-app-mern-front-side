@@ -32,3 +32,25 @@ export const client = (endpoint, { values, ...customConfig } = {}) => {
     }
   );
 };
+
+export const clientDelete = (endpoint, { values, ...customConfig } = {}) => {
+  const adminLogin = localStorage.getItem("adminLogin");
+  const headers = { "Content-Type": "application/json" };
+
+  const config = {
+    method: "DELETE",
+    ...customConfig,
+  };
+
+  return fetch(`http://localhost:8000/api${endpoint}`, config).then(
+    async (res) => {
+      const data = await res.json();
+
+      if (res.ok) {
+        return data;
+      } else {
+        return Promise.reject(data);
+      }
+    }
+  );
+};

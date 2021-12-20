@@ -5,6 +5,7 @@ import RegisterUser from "./components/RegisterUser";
 import Success from "./components/Success";
 import LoginAdmin from "./components/LoginAdmin";
 import AdminDashboard from "./components/AdminDashboard";
+import ViewUserRecord from "./components/ViewUserRecord";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/login" component={LoginUser} />
         <Route path="/success" component={Success} />
         <Route path="/admindashboard" component={AdminDashboard} />
+        <Route path="/users/:id" component={ViewUserRecord} />
       </Swh>
     </div>
   );

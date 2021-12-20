@@ -149,7 +149,7 @@ export default function SurveyForm() {
                     <option value="MEAN" label="Mean" />
                     <option value="MVEN" label="Mven" />
 
-                    <option value="Unit Testing " label="Unit Testing " />
+                    <option value="UNIT" label="Unit Testing " />
                   </select>
                   {errors.techstack && touched.techstack && errors.techstack}
                 </div>
