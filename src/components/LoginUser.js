@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
 import { client } from "../client";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginUser() {
-  const history = useHistory();
-
+  // /const history = useHistory();
+  let navigate = useNavigate();
+  useEffect(() => {
+    var accessTokenObj = localStorage.getItem("token");
+    if (accessTokenObj) {
+      //history.push(`/adminlogin`);
+      navigate("/");
+    }
+  }, []);
   return (
     <div class="container ">
       <div class="row  ">
@@ -52,16 +59,12 @@ export default function LoginUser() {
                     "userInfo",
                     JSON.stringify(res.userInfo)
                   );
-                  history.push(`/`);
+                  //history.push(`/`);
+                  navigate("/");
                 });
               } catch (err) {
                 console.log("error", err);
               }
-
-              // setTimeout(() => {
-              //   alert(JSON.stringify(values, null, 2));
-              //   setSubmitting(false);
-              // }, 400);
             }}
           >
             {({

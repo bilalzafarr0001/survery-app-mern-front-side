@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Formik } from "formik";
 import { client } from "../client";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function LoginAdmin() {
-  const history = useHistory();
+  // const history = useHistory();
+  let navigate = useNavigate();
+
   const [isAdmin, setisAdmin] = useState(localStorage.getItem("adminLogin"));
 
   useEffect(() => {
     console.log("isAdmin", isAdmin);
     if (isAdmin == 1) {
-      history.push(`/admindashboard`);
+      // history.push(`/admindashboard`);
+      navigate("/admindashboard");
     }
   }, []);
   return (
@@ -58,7 +61,8 @@ export default function LoginAdmin() {
 
                   localStorage.setItem("adminLogin", 1);
 
-                  history.push(`/admindashboard`);
+                  //  history.push(`/admindashboard`);
+                  navigate("/admindashboard");
                 });
               } catch (err) {
                 console.log("error", err);

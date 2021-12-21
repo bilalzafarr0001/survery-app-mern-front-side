@@ -20,17 +20,18 @@ export const client = (endpoint, { values, ...customConfig } = {}) => {
     config.body = JSON.stringify(values);
   }
 
-  return fetch(`http://localhost:8000/api${endpoint}`, config).then(
-    async (res) => {
-      const data = await res.json();
+  return fetch(
+    `https://survey-app-mern.herokuapp.com/api${endpoint}`,
+    config
+  ).then(async (res) => {
+    const data = await res.json();
 
-      if (res.ok) {
-        return data;
-      } else {
-        return Promise.reject(data);
-      }
+    if (res.ok) {
+      return data;
+    } else {
+      return Promise.reject(data);
     }
-  );
+  });
 };
 
 export const clientDelete = (endpoint, { values, ...customConfig } = {}) => {

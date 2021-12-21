@@ -2,10 +2,11 @@ import React from "react";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
 import { client } from "../client";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterUser() {
-  const history = useHistory();
+  //const history = useHistory();
+  let navigate = useNavigate();
 
   return (
     <div class="container ">
@@ -68,12 +69,8 @@ export default function RegisterUser() {
               } catch (err) {
                 console.log("error", err);
               }
-              history.push(`/`);
-
-              // setTimeout(() => {
-              //   alert(JSON.stringify(values, null, 2));
-              //   setSubmitting(false);
-              // }, 400);
+              // history.push(`/`);
+              navigate("/");
             }}
           >
             {({

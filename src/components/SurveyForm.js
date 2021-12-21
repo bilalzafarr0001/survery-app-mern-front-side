@@ -2,12 +2,13 @@ import React from "react";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
 import { client } from "../client";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function SurveyForm() {
-  const history = useHistory();
+  //const history = useHistory();
+  let navigate = useNavigate();
 
   return (
     <div class="container ">
@@ -74,7 +75,9 @@ export default function SurveyForm() {
               } catch (err) {
                 console.log("error", err);
               }
-              history.push(`/success`);
+              navigate("/success");
+
+              // history.push(`/success`);
             }}
           >
             {({

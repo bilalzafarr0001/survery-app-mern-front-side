@@ -11,7 +11,8 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function TableUsers() {
   const [users, setUsers] = useState([]);
-  const [input1, setInput1] = useState("");
+  const [filteredResults, setFilteredResults] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
     try {
@@ -105,22 +106,21 @@ export default function TableUsers() {
     }
   };
 
-  const handleChange = (e) => {
-    let currentList = [];
-    let newList = [];
-
-    if (e.target.value !== "") {
-      currentList = users;
-      newList = currentList.filter((item) => {
-        const lc = item.user.username.toLowerCase();
-        const filter = e.target.value.toLowerCase();
-        return lc.includes(filter);
+  const searchUsers = (searchValue) => {
+    setSearchInput(searchValue);
+    if (searchInput !== "") {
+      const filteredData = users.filter((item) => {
+        return Object.values(item.user.username)
+          .join("")
+          .toLowerCase()
+          .includes(searchInput.toLowerCase());
       });
+      setFilteredResults(filteredData);
     } else {
-      newList = users;
+      setFilteredResults(users);
     }
-    setUsers(newList);
   };
+
   return (
     <div class="container">
       <ToastContainer
@@ -135,7 +135,11 @@ export default function TableUsers() {
         pauseOnHover
       />
 
-      <input placeholder="Search for..." onChange={handleChange} />
+      <input
+        class="form-control"
+        placeholder="Search for..."
+        onChange={(e) => searchUsers(e.target.value)}
+      />
       <br></br>
       <table class="table table-danger">
         <thead>
@@ -154,36 +158,67 @@ export default function TableUsers() {
         </thead>
 
         <tbody>
-          {users?.map((user, i) => {
-            return (
-              <tr key={i}>
-                <th scope="row">{i}</th>
-                <td>{user.user.username}</td>
-                <td>{user.user.email}</td>
-                <td>{user.designation}</td>
-                <td>{user.techstack}</td>
-                <td>{user.gender}</td>
-                <td>{user.age}</td>
-                <td>{user.country}</td>
-                <td>
-                  <Link to={`/users/${user._id}`}>
-                    <button type="button" class="btn btn-success">
-                      Show
-                    </button>
-                  </Link>
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    class="btn btn-danger"
-                    onClick={() => handleDelete(user._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+          {searchInput.length > 1
+            ? filteredResults.map((user, i) => {
+                return (
+                  <tr key={i}>
+                    <th scope="row">{i}</th>
+                    <td>{user.user.username}</td>
+                    <td>{user.user.email}</td>
+                    <td>{user.designation}</td>
+                    <td>{user.techstack}</td>
+                    <td>{user.gender}</td>
+                    <td>{user.age}</td>
+                    <td>{user.country}</td>
+                    <td>
+                      <Link to={`/users/${user._id}`}>
+                        <button type="button" class="btn btn-success">
+                          Show
+                        </button>
+                      </Link>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        onClick={() => handleDelete(user._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            : users?.map((user, i) => {
+                return (
+                  <tr key={i}>
+                    <th scope="row">{i}</th>
+                    <td>{user.user.username}</td>
+                    <td>{user.user.email}</td>
+                    <td>{user.designation}</td>
+                    <td>{user.techstack}</td>
+                    <td>{user.gender}</td>
+                    <td>{user.age}</td>
+                    <td>{user.country}</td>
+                    <td>
+                      <Link to={`/users/${user._id}`}>
+                        <button type="button" class="btn btn-success">
+                          Show
+                        </button>
+                      </Link>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-danger"
+                        onClick={() => handleDelete(user._id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
         </tbody>
       </table>
       <div

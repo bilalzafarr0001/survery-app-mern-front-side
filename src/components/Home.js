@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import SurveyForm from "./SurveyForm";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  const history = useHistory();
+  //const history = useHistory();
+  let navigate = useNavigate();
 
   useEffect(() => {
     var accessTokenObj = localStorage.getItem("token");
     if (!accessTokenObj) {
-      history.push(`/login`);
+      navigate("/login");
     }
   }, []);
   return (

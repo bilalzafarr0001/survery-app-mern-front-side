@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import TableUsers from "./TableUsers";
 import { client, clientDelete } from "../client";
 
 export default function AdminDashboard() {
-  const history = useHistory();
+  // const history = useHistory();
+  let navigate = useNavigate();
 
   const [isAdmin, setisAdmin] = useState(localStorage.getItem("adminLogin"));
 
   useEffect(() => {
     console.log("isAdmin", isAdmin);
     if (isAdmin == 0) {
-      history.push(`/adminlogin`);
+      //history.push(`/adminlogin`);
     }
   }, []);
   const handleLogout = () => {
     localStorage.setItem("adminLogin", 0);
-    history.push("/adminlogin");
+    //history.push("/adminlogin");
+    navigate("/iloginadmin");
   };
   return (
     <div>

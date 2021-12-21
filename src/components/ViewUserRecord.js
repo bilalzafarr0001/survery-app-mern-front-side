@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { client } from "../client";
 
 export default function ViewUserRecord() {
   const { id } = useParams();
-  const history = useHistory();
+  //const history = useHistory();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function ViewUserRecord() {
 
   const handleLogout = () => {
     localStorage.setItem("adminLogin", 0);
-    history.push("/adminlogin");
+    //history.push("/adminlogin");
   };
 
   return (
